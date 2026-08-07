@@ -29,6 +29,15 @@ Production never sees the Reviews tab. Admins see Home, Reciters, Reviews, Accou
 
 ## Run
 
+Default API is `https://qaari.mahaysaa.com`. Release APK:
+
+```bash
+cd qaari-sl-staff
+flutter build apk --release
+```
+
+Local backend:
+
 ```bash
 cd qaari-sl-backend
 php artisan serve --host=0.0.0.0 --port=8000
