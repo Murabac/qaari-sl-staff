@@ -121,6 +121,32 @@ class _AyahSyncScreenState extends ConsumerState<AyahSyncScreen> {
     }
   }
 
+  Future<void> _runAutoSync({required bool overwriteManual}) async {
+    setState(() => _saving = true);
+    try {
+      final saved = await ref.read(staffRepositoryProvider).autoAyahSync(
+            recitationId: widget.recitationId,
+            overwriteManual: overwriteManual,
+          );
+      ref.invalidate(ayahSyncProvider(widget.recitationId));
+      _booted = false;
+      _starts = List<double>.from(saved.ayahStarts);
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Auto ayah sync finished')),
+      );
+      setState(() {});
+      await _boot(saved);
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Auto sync failed: $e')),
+      );
+    } finally {
+      if (mounted) setState(() => _saving = false);
+    }
+  }
+
   String _fmt(double seconds) {
     final d = Duration(milliseconds: (seconds * 1000).round());
     final m = d.inMinutes.remainder(60).toString().padLeft(2, '0');
@@ -137,6 +163,26 @@ class _AyahSyncScreenState extends ConsumerState<AyahSyncScreen> {
       appBar: AppBar(
         title: const Text('Manual ayah sync'),
         actions: [
+          PopupMenuButton<String>(
+            enabled: !_saving,
+            onSelected: (value) {
+              if (value == 'auto') {
+                _runAutoSync(overwriteManual: false);
+              } else if (value == 'auto_overwrite') {
+                _runAutoSync(overwriteManual: true);
+              }
+            },
+            itemBuilder: (_) => const [
+              PopupMenuItem(
+                value: 'auto',
+                child: Text('Run auto sync'),
+              ),
+              PopupMenuItem(
+                value: 'auto_overwrite',
+                child: Text('Auto sync (overwrite manual)'),
+              ),
+            ],
+          ),
           if (_dirty)
             TextButton(
               onPressed: _saving

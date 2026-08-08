@@ -304,4 +304,19 @@ class StaffRepository {
       response.data?['data'] as Map<String, dynamic>,
     );
   }
+
+  Future<AyahSyncPayload> autoAyahSync({
+    required int recitationId,
+    bool overwriteManual = false,
+  }) async {
+    final response = await _dio.post<Map<String, dynamic>>(
+      '/recitations/$recitationId/ayah-sync/auto',
+      data: {
+        'overwrite_manual': overwriteManual,
+      },
+    );
+    return AyahSyncPayload.fromJson(
+      response.data?['data'] as Map<String, dynamic>,
+    );
+  }
 }
