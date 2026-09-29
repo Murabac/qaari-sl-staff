@@ -1,4 +1,4 @@
-package com.qaarisl.qaari_sl_staff
+package com.xulkaquraadastaff.app
 
 import io.flutter.embedding.android.FlutterActivity
 

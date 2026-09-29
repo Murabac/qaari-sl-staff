@@ -1,5 +1,5 @@
 abstract final class AppConstants {
-  static const String appName = 'Qaari SL Staff';
+  static const String appName = 'Xulka Quraada Staff';
 
   /// Production staff APK default. Override for local/dev:
   /// `--dart-define=API_BASE_URL=http://10.0.2.2:8000`
@@ -10,4 +10,6 @@ abstract final class AppConstants {
   );
 
   static const String apiPrefix = '/api/staff';
+
+  static const String privacyPolicyUrl = 'https://qaari.mahaysaa.com/privacy';
 }

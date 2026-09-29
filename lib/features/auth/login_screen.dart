@@ -1,6 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:qaari_sl_staff/core/auth/auth_controller.dart';
 import 'package:qaari_sl_staff/core/constants/app_constants.dart';
 import 'package:qaari_sl_staff/core/theme/app_colors.dart';
@@ -54,7 +54,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [AppColors.forest, Color(0xFF243F34), AppColors.cream],
+            colors: [AppColors.forest, Color(0xFF14504E), AppColors.cream],
             stops: [0, 0.45, 0.45],
           ),
         ),
@@ -66,10 +66,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 constraints: const BoxConstraints(maxWidth: 420),
                 child: Column(
                   children: [
-                    SvgPicture.asset('assets/images/logo.svg', height: 72),
+                    Image.asset('assets/images/logo-circle.png', height: 88),
                     const SizedBox(height: 12),
                     Text(
-                      'Qaari SL Staff',
+                      AppConstants.appName,
                       style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                             color: AppColors.cream,
                             fontWeight: FontWeight.w900,
@@ -123,41 +123,45 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                     )
                                   : const Text('Sign in'),
                             ),
-                            const SizedBox(height: 20),
-                            const Text(
-                              'Quick local login',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: AppColors.muted,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 13,
+                            if (kDebugMode) ...[
+                              const SizedBox(height: 20),
+                              const Text(
+                                'Quick local login',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: AppColors.muted,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 13,
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 10),
-                            Wrap(
-                              spacing: 8,
-                              runSpacing: 8,
-                              alignment: WrapAlignment.center,
-                              children: [
-                                _DemoLoginChip(
-                                  label: 'Super Admin',
-                                  enabled: !_busy,
-                                  onTap: () => _quickLogin('admin@qaarisl.com'),
-                                ),
-                                _DemoLoginChip(
-                                  label: 'Admin',
-                                  enabled: !_busy,
-                                  onTap: () =>
-                                      _quickLogin('reviewer@qaarisl.com'),
-                                ),
-                                _DemoLoginChip(
-                                  label: 'Production',
-                                  enabled: !_busy,
-                                  onTap: () =>
-                                      _quickLogin('production@qaarisl.com'),
-                                ),
-                              ],
-                            ),
+                              const SizedBox(height: 10),
+                              Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
+                                alignment: WrapAlignment.center,
+                                children: [
+                                  _DemoLoginChip(
+                                    label: 'Super Admin',
+                                    enabled: !_busy,
+                                    onTap: () =>
+                                        _quickLogin('admin@qaarisl.com'),
+                                  ),
+                                  _DemoLoginChip(
+                                    label: 'Admin',
+                                    enabled: !_busy,
+                                    onTap: () =>
+                                        _quickLogin('reviewer@qaarisl.com'),
+                                  ),
+                                  _DemoLoginChip(
+                                    label: 'Production',
+                                    enabled: !_busy,
+                                    onTap: () => _quickLogin(
+                                      'production@qaarisl.com',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                             const SizedBox(height: 16),
                             Text(
                               'API: ${AppConstants.apiBaseUrl}',

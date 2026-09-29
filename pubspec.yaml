@@ -2,7 +2,7 @@ name: qaari_sl_staff
 description: Qaari SL staff app — Production upload and Admin review.
 publish_to: "none"
 
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
   sdk: ^3.11.4

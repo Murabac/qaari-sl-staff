@@ -3,7 +3,7 @@
 Internal Flutter app for **Production** uploaders and **Admin** reviewers.  
 Separate from the consumer listener app (`qaari-sl-mobile`).
 
-Brand: forest `#1B3A2E` / gold `#C9A24B` / cream `#F7F4EE` (Nunito).
+Brand: forest `#0C403E` / gold `#C9A24B` / cream `#F7F4EE` (Nunito).
 
 ## Roles
 

@@ -1,0 +1,51 @@
+Google Play — Xulka Quraada Staff (new app listing)
+====================================================
+
+Create a **separate** app in Play Console (do not reuse the consumer listing).
+
+Package name (also register under Android developer verification):
+com.xulkaquraadastaff.app
+
+App name (max 30):
+Xulka Quraada Staff
+(20 characters)
+
+----------------------------------------------------------
+SHORT DESCRIPTION (max 80)
+----------------------------------------------------------
+Staff tools to upload, review, and sync Somali Quran recitations.
+
+(68 characters)
+
+----------------------------------------------------------
+FULL DESCRIPTION
+----------------------------------------------------------
+Xulka Quraada Staff is the internal companion app for the Xulka Quraada archive.
+
+Production team members can create reciters, upload surah audio, and submit work for review. Admins can approve or reject recitations (including voice notes) and manage ayah timing sync so listeners get accurate follow-along text.
+
+WHO IT’S FOR
+• Production — upload and submit recitations
+• Admin / Super Admin — review queue, reject with notes, ayah sync
+
+This app is for authorized staff only. Listener browsing and playback use the public Xulka Quraada app.
+
+Privacy: https://qaari.mahaysaa.com/privacy
+
+----------------------------------------------------------
+GRAPHICS
+----------------------------------------------------------
+App icon 512×512: play-icon-512.png
+Feature graphic 1024×500: play-feature-graphic-1024x500.png
+
+Phone screenshots: capture 4+ from the staff app (login, dashboard, upload, review, ayah sync) at ≥1080 px. See SCREENSHOTS.md
+
+----------------------------------------------------------
+PLAY CONSOLE TIPS
+----------------------------------------------------------
+• Prefer starting on Internal testing or Closed testing (staff-only testers)
+• App access: restricted — provide reviewer login (production@ / reviewer@)
+• Declare microphone permission (reject voice notes)
+• Data safety: account email/name, audio uploads, voice notes; HTTPS yes
+• Not for children / Families Policy
+• Category: Tools or Productivity
