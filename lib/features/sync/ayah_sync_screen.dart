@@ -158,31 +158,28 @@ class _AyahSyncScreenState extends ConsumerState<AyahSyncScreen> {
   @override
   Widget build(BuildContext context) {
     final async = ref.watch(ayahSyncProvider(widget.recitationId));
+    final syncData = async.valueOrNull;
+    final isManual = syncData?.syncMethod == 'manual';
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Manual ayah sync'),
         actions: [
-          PopupMenuButton<String>(
-            enabled: !_saving,
-            onSelected: (value) {
-              if (value == 'auto') {
-                _runAutoSync(overwriteManual: false);
-              } else if (value == 'auto_overwrite') {
-                _runAutoSync(overwriteManual: true);
-              }
-            },
-            itemBuilder: (_) => const [
-              PopupMenuItem(
-                value: 'auto',
-                child: Text('Run auto sync'),
-              ),
-              PopupMenuItem(
-                value: 'auto_overwrite',
-                child: Text('Auto sync (overwrite manual)'),
-              ),
-            ],
-          ),
+          if (!isManual)
+            PopupMenuButton<String>(
+              enabled: !_saving,
+              onSelected: (value) {
+                if (value == 'auto') {
+                  _runAutoSync(overwriteManual: false);
+                }
+              },
+              itemBuilder: (_) => const [
+                PopupMenuItem(
+                  value: 'auto',
+                  child: Text('Run auto sync'),
+                ),
+              ],
+            ),
           if (_dirty)
             TextButton(
               onPressed: _saving
@@ -246,6 +243,11 @@ class _AyahSyncScreenState extends ConsumerState<AyahSyncScreen> {
                               : (data.syncStatus ?? 'pending'),
                           ok: data.syncStatus == 'synced',
                         ),
+                        if (data.syncMethod == 'manual')
+                          const _Badge(
+                            label: 'Auto sync locked off',
+                            ok: true,
+                          ),
                         if (data.resumeAyah > 1)
                           _Badge(
                             label: 'Resume ayah ${data.resumeAyah}',
@@ -254,6 +256,15 @@ class _AyahSyncScreenState extends ConsumerState<AyahSyncScreen> {
                         if (_dirty) const _Badge(label: 'Unsaved', warn: true),
                       ],
                     ),
+                    if (data.syncMethod == 'manual') ...[
+                      const SizedBox(height: 12),
+                      Text(
+                        'Ayahs were marked by hand, so automatic matching stays off for this surah. Keep editing timings manually.',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: AppColors.muted,
+                            ),
+                      ),
+                    ],
                     const SizedBox(height: 16),
                     Material(
                       color: const Color(0xFFFFFBEB),
